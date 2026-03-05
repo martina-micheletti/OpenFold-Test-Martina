@@ -1,17 +1,25 @@
 import argparse
+from functools import lru_cache
 
 from transformers import pipeline
 
 
-_SENTIMENT_MODEL = "distilbert-base-uncased-finetuned-sst-2-english"
+_DEFAULT_MODEL = "distilbert-base-uncased-finetuned-sst-2-english"
 
 
-def predict_sentiment(text: str) -> dict:
+@lru_cache(maxsize=4)
+def _get_classifier(model_name: str = _DEFAULT_MODEL):
+    return pipeline("sentiment-analysis", model=model_name)
+
+
+def predict_sentiment(
+    text: str, model_name: str = _DEFAULT_MODEL
+) -> dict:
     """
     Run sentiment analysis on the given text and return a dict
     containing the predicted label and score.
     """
-    classifier = pipeline("sentiment-analysis", model=_SENTIMENT_MODEL)
+    classifier = _get_classifier(model_name)
     result = classifier(text)[0]
     return {"label": result["label"], "score": float(result["score"])}
 

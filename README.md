@@ -38,5 +38,13 @@ The output will be in the form:
 LABEL=<label> SCORE=<score>
 ```
 
-# view new changes
-# new new
+## Run the Gradio UI
+
+To start the web interface for interactive sentiment analysis, run:
+
+```bash
+python gradio_ui.py
+```
+
+Then open the URL shown in the terminal (by default `http://127.0.0.1:7860`) in your browser.
+
