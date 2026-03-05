@@ -34,7 +34,7 @@ def main() -> None:
     prediction = predict_sentiment(args.text)
     label = prediction["label"]
     score = prediction["score"]
-    print(f"LABEL={label} SCORE={score}")
+    print(f"LABEL={label} SCORE={score:.4f}")
 
 
 if __name__ == "__main__":
